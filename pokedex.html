@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="pokdex.css">
+  <title> Favorite Pokemon</title>
+</head>
+<body>
+  <h1>My Top 10 Favorite Pokémon</h1>
+  <navbar class="nav">
+    <a href="index.html">Home</a>
+    <a href="pokedex.html">Pokedex</a>
+</navbar>
+  <div id="poke-container" class="poke-container"></div>
+
+</body>
+<script>
+    const favoritePokemon = ['pikachu', 'charizard', 'bulbasaur', 'squirtle', 'eevee', 'snorlax', 'gengar', 'dragonite', 'mewtwo', 'lucario'];
+
+favoritePokemon.forEach(pokemon => {
+  fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to fetch ${pokemon}`);
+      }
+      return response.json();
+    })
+    .then(pokemonData => {
+      const pokeCard = document.createElement('div');
+      pokeCard.classList.add('poke-card');
+      pokeCard.innerHTML = `
+        <img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
+        <h2>${pokemonData.name}</h2>
+        <p><strong>Height:</strong> ${pokemonData.height}</p>
+        <p><strong>Weight:</strong> ${pokemonData.weight}</p>
+        <p><strong>Base Experience:</strong> ${pokemonData.base_experience}</p>
+        <p><strong>Abilities:</strong> ${pokemonData.abilities.map(a => a.ability.name).join(', ')}</p>
+        <p><strong>Types:</strong> ${pokemonData.types.map(t => t.type.name).join(', ')}</p>
+      `;
+      document.getElementById('poke-container').appendChild(pokeCard);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+});
+</script>
+</html>
