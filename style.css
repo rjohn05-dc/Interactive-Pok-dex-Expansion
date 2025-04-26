@@ -34,7 +34,7 @@ h1{
     align-items: center;
     margin-top: 20px;
     border: 1px solid #333;
-    background-color: #f0f0f0;
+    background-color:rgba(87, 6, 87, 0.388);
 }
 .nav a {
     color:black;
