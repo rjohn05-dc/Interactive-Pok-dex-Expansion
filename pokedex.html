@@ -17,8 +17,9 @@
 
 </body>
 <script>
+  // this makes an array of all the pokemon I like
     const favoritePokemon = ['pikachu', 'charizard', 'bulbasaur', 'squirtle', 'eevee', 'snorlax', 'gengar', 'dragonite', 'mewtwo', 'lucario'];
-
+// This takes the data of my pokemon from the favoritePokemon array and fetches the data from the API
 favoritePokemon.forEach(pokemon => {
   fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
     .then(response => {
@@ -27,6 +28,8 @@ favoritePokemon.forEach(pokemon => {
       }
       return response.json();
     })
+    // This takes the data from the API and creates a card for each pokemon
+    // The card contains the pokemon's name, image, height, weight, base experience, abilities, and types
     .then(pokemonData => {
       const pokeCard = document.createElement('div');
       pokeCard.classList.add('poke-card');
